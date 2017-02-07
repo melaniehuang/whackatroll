@@ -4,7 +4,7 @@ function preload() {
     game.load.image("phaser", "assets/sprites/troll.png");
 }
 
-var sprite;
+var sprite = [];
 var trollHole = [];
 
 var upKey;
@@ -14,13 +14,6 @@ var rightKey;
 
 function create() {
   game.stage.backgroundColor = "#736357";
-  sprite = game.add.sprite(64, 64, "phaser");
-  sprite1 = game.add.sprite(64, 64, "phaser");
-  sprite2 = game.add.sprite(64, 64, "phaser");
-  sprite3 = game.add.sprite(64, 64, "phaser");
-
-  sprite.inputEnabled = true;
-  sprite.events.onInputDown.add(destroySprite, this);
   
   upKey = game.input.keyboard.addKey(Phaser.Keyboard.UP);
   downKey = game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
@@ -31,59 +24,61 @@ function create() {
   sKey = game.input.keyboard.addKey(Phaser.Keyboard.S);
   dKey = game.input.keyboard.addKey(Phaser.Keyboard.D);
   
-  trollHole[0] = new Phaser.Rectangle(300, 100, 44, 44);
-  trollHole[1] = new Phaser.Rectangle(150, 250, 44, 44);
-  trollHole[2] = new Phaser.Rectangle(300, 400, 44, 44);
-  trollHole[3] = new Phaser.Rectangle(450, 250, 44, 44);
+  trollHole[0] = new Phaser.Rectangle(300, 100, 100, 100);
+  trollHole[1] = new Phaser.Rectangle(150, 250, 100, 100);
+  trollHole[2] = new Phaser.Rectangle(300, 400, 100, 100);
+  trollHole[3] = new Phaser.Rectangle(450, 250, 100, 100);
 
-  trollHole[4] = new Phaser.Rectangle(800, 100, 44, 44);
-  trollHole[5] = new Phaser.Rectangle(650, 250, 44, 44);
-  trollHole[6] = new Phaser.Rectangle(800, 400, 44, 44);
-  trollHole[7] = new Phaser.Rectangle(950, 250, 44, 44);
+  trollHole[4] = new Phaser.Rectangle(800, 100, 100, 100);
+  trollHole[5] = new Phaser.Rectangle(650, 250, 100, 100);
+  trollHole[6] = new Phaser.Rectangle(800, 400, 100, 100);
+  trollHole[7] = new Phaser.Rectangle(950, 250, 100, 100);
+
+  for (var i = 0; i < 8; i++){
+    sprite[i] = game.add.sprite(64, 64, "phaser");
+    sprite[i].inputEnabled = true;
+  }
 }
 
 function render(){
-  sprite.alignIn(trollHole[0], Phaser.CENTER);
-  sprite1.alignIn(trollHole[1], Phaser.CENTER);
-  sprite2.alignIn(trollHole[2], Phaser.CENTER);
-  sprite3.alignIn(trollHole[3], Phaser.CENTER);
 
   for (var i = 0; i < 8; i++){
-    game.debug.geom(trollHole[i], "#000"); 
+    sprite[i].alignIn(trollHole[i], Phaser.CENTER);
+    game.debug.geom(trollHole[i], "rgba(255,255,255,0.0)"); 
   }
   
   if (upKey.isDown){
-    game.debug.geom(trollHole[0], "#fff");
-    sprite.destroy();
+    game.debug.geom(trollHole[0], "rgba(255,255,255,0.1)");
+    sprite[0].destroy();
   } else if (downKey.isDown){
-    game.debug.geom(trollHole[2], "#fff");
-    sprite2.destroy();
+    game.debug.geom(trollHole[2], "rgba(255,255,255,0.1)");
+    sprite[2].destroy();
   }
 
   if (leftKey.isDown){
-    game.debug.geom(trollHole[1], "#fff");
-    sprite1.destroy();
+    game.debug.geom(trollHole[1], "rgba(255,255,255,0.1)");
+    sprite[1].destroy();
   } else if (rightKey.isDown){
-    game.debug.geom(trollHole[3], "#fff");
-    sprite3.destroy();
+    game.debug.geom(trollHole[3], "rgba(255,255,255,0.1)");
+    sprite[3].destroy();
   }
 
   if (wKey.isDown){
-    game.debug.geom(trollHole[4], "#fff");
+    game.debug.geom(trollHole[4], "rgba(255,255,255,0.1)");
+    sprite[4].destroy();
   } else if (sKey.isDown){
-    game.debug.geom(trollHole[6], "#fff");
+    game.debug.geom(trollHole[6], "rgba(255,255,255,0.1)");
+    sprite[6].destroy();
   }
 
   if (aKey.isDown){
-    game.debug.geom(trollHole[5], "#fff");
+    game.debug.geom(trollHole[5], "rgba(255,255,255,0.1)");
+    sprite[5].destroy();
   } else if (dKey.isDown){
-    game.debug.geom(trollHole[7], "#fff");
+    game.debug.geom(trollHole[7], "rgba(255,255,255,0.1)");
+    sprite[7].destroy();
   }
 }
 
 function update() {
-}
-
-function destroySprite (sprite) {
-  sprite.destroy();
 }
